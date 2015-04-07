@@ -1,99 +1,36 @@
-## Readme
+## Install eb:
 
-web2py is a free open source full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications. 
+Download and unzip the Elastic Beanstalk command line tools package at the AWS Sample Code & Libraries website.
 
-It is written and programmable in Python. LGPLv3 License
+Create environment variable to run eb:
 
-Learn more at http://web2py.com
+$ export PATH=$PATH:<path to unzipped eb CLI package>/eb/linux/python2.7/
 
-## Google App Engine deployment
+## Import the project:
 
-    cp examples/app.yaml ./
-    cp handlers/gaehandler.py ./
-    
-Then edit ./app.yaml and replace "yourappname" with yourappname.
+git clone git@github.com:javamcs/aws-beanstalk-w2p.git
 
-## Import about this GIT repo
+## To configure Elastic Beanstalk
 
-An important part of web2py is the Database Abstraction Layer (DAL). In early 2015 this was decoupled into a separate code-base (PyDAL). In terms of git, it is a sub-module of the main repository.
+cd aws-beanstalk-w2p
 
-The use of a sub-module requires a one-time use of the --recursive flag for git clone if you are cloning web2py from scratch.
+eb init
 
-    git clone --recursive https://github.com/web2py/web2py.git
+"Available solution stacks are:" 32
 
-If you have an existing repository, the commands below need to be executed at least once:
+Change .elasticbeanstalk/optionsettings.aws-beanstalk-w2p-env file: 
 
-    git submodule update --init --recursive
+[aws:autoscaling:launchconfiguration]
+EC2KeyName=<key .pem name>
+InstanceType=t1.micro
 
-If you have a folder gluon/dal you must remove it:
+and 
 
-    rm -r gluon/dal
+[aws:elasticbeanstalk:container:python]
+NumProcesses=1
+NumThreads=15
+StaticFiles=/static/=static/,/static=applications/welcome/static/
+WSGIPath=handlers/wsgihandler.py
 
-PyDAL uses a separate stable release cycle to the rest of web2py. PyDAL releases will use a date-naming scheme similar to Ubuntu. Issues related to PyDAL should be reported to its separate repository.
+eb start
 
-
-## Documentation (readthedocs.org)
-
-[![Docs Status](https://readthedocs.org/projects/web2py/badge/?version=latest&style=flat-square)](http://web2py.rtfd.org/)
-
-## Tests
-
-[![Build Status](https://img.shields.io/travis/web2py/web2py.svg?style=flat-square)](https://travis-ci.org/web2py/web2py)
-
-[![Coverage Status](https://img.shields.io/coveralls/web2py/web2py.svg?style=flat-square)](https://coveralls.io/r/web2py/web2py)
-
-## Installation Instructions
-
-To start web2py there is NO NEED to install it. Just unzip and do:
-
-    python web2py.py
-
-That's it!!!
-
-## web2py directory structure
-
-    project/
-        README
-        LICENSE
-        VERSION                    > this web2py version
-        web2py.py                  > the startup script
-        anyserver.py               > to run with third party servers
-        ...                        > other handlers and example files
-        gluon/                     > the core libraries
-            packages/              > web2py submodules
-              dal/
-            contrib/               > third party libraries
-            tests/                 > unittests  
-        applications/              > are the apps
-            admin/                 > web based IDE
-                ...
-            examples/              > examples, docs, links
-                ...
-            welcome/               > the scaffolding app (they all copy it)
-                ABOUT
-                LICENSE
-                models/
-                views/
-                controllers/
-                sessions/
-                errors/
-                cache/
-                static/
-                uploads/
-                modules/
-                cron/
-                tests/
-            ...                    > your own apps
-        examples/                  > example config files, mv .. and customize
-        extras/                    > other files which are required for building web2py
-        scripts/                   > utility and installation scripts
-        handlers/
-            wsgihandler.py         > handler to connect to WSGI
-            ...                    > handlers for Fast-CGI, SCGI, Gevent, etc
-        site-packages/             > additional optional modules
-        logs/                      > log files will go in there
-        deposit/                   > a place where web2py stores apps temporarily
-
-## Issues?
-
-Report issues at https://github.com/web2py/web2py/issues
