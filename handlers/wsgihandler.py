@@ -26,6 +26,7 @@ import os
 
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path)
+os.chdir("..") # Atualização necessária para rodar no beanstalk
 
 if not os.path.isdir('applications'):
     raise RuntimeError('Running from the wrong folder')
