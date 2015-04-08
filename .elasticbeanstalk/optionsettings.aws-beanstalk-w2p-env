@@ -18,11 +18,16 @@ VPCId=
 Application Healthcheck URL=
 
 [aws:elasticbeanstalk:application:environment]
-DB_DBMS = 
-DB_HOST = 
-DB_NAME = 
-DB_USER = 
-DB_PASSWORD = 
+DB_DBMS=
+DB_HOST=
+DB_NAME=
+DB_PASSWORD=
+DB_USER=
+PARAM1=
+PARAM2=
+PARAM3=
+PARAM4=
+PARAM5=
 
 [aws:elasticbeanstalk:container:python]
 NumProcesses=1
@@ -31,6 +36,7 @@ StaticFiles=/static/=static/,/static=applications/welcome/static/
 WSGIPath=handlers/wsgihandler.py
 
 [aws:elasticbeanstalk:container:python:staticfiles]
+/static=applications/welcome/static/
 /static/=static/
 
 [aws:elasticbeanstalk:hostmanager]
