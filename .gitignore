@@ -1,1 +1,6 @@
 .elasticbeanstalk/
+*.pyc
+*.pyo
+errors/
+databases/
+sessions/
